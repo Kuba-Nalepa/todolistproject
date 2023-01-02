@@ -19,8 +19,7 @@ public class FileHelper {
     private static final String MESSAGE = "File not found";
     private static final int DURATION = Toast.LENGTH_LONG;
 
-    public static void writeData(ArrayList<String> item, Context context)
-    {
+    public static void writeData(ArrayList<String> item, Context context) {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             ObjectOutputStream oas = new ObjectOutputStream(fos);
@@ -32,10 +31,8 @@ public class FileHelper {
     }
 
     @SuppressWarnings("unchecked")
-    public static ArrayList<String> readData(Context context)
-    {
+    public static ArrayList<String> readData(Context context) {
         ArrayList<String> itemlist = null;
-
 
         try {
             FileInputStream fis = context.openFileInput(FILENAME);
