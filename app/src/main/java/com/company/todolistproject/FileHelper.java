@@ -1,7 +1,6 @@
 package com.company.todolistproject;
 
 import android.content.Context;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,13 +20,12 @@ public class FileHelper {
             ObjectOutputStream oas = new ObjectOutputStream(fos);
             oas.writeObject(item);
             oas.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static ArrayList<String> readData(Context context)
     {
         ArrayList<String> itemlist = null;
@@ -39,9 +37,7 @@ public class FileHelper {
         } catch (FileNotFoundException e) {
             itemlist = new ArrayList<>();
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
