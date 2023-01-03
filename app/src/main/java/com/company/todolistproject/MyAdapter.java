@@ -2,7 +2,6 @@ package com.company.todolistproject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import java.util.Random;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolder> {
 
-    private ArrayList<String> _itemList;
+    public ArrayList<String> itemList;
     private final Context _context;
     private final String[] _urlList = {
         "https://img.redro.pl/plakaty/countryside-road-in-mountains-on-a-sunny-day-beautiful-view-in-to-the-distant-foggy-valley-from-the-top-of-the-pass-trees-along-the-way-wonderful-rural-landscape-in-summer-400-243053348.jpg",
@@ -28,7 +27,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolde
     };
 
     public MyAdapter(ArrayList<String> itemList, Context context) {
-        this._itemList = itemList;
+        this.itemList = itemList;
         this._context = context;
     }
 
@@ -42,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolde
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull MyAdapterViewHolder holder, int position) {
-        holder.textViewToDo.setText(_itemList.get(position));
+        holder.textViewToDo.setText(itemList.get(position));
 
         holder.btnDelete.setOnClickListener( view -> {
 
@@ -54,9 +53,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolde
             alert.setCancelable(false);
             alert.setNegativeButton("No", (dialog, which) -> dialog.cancel());
             alert.setPositiveButton("Yes", (dialog, which) -> {
-                _itemList.remove(position);
+                itemList.remove(position);
                 notifyDataSetChanged();
-                FileHelper.writeData(_itemList, _context);
+                FileHelper.writeData(itemList, _context);
             });
             AlertDialog alertDialog = alert.create();
             alertDialog.show();
@@ -66,22 +65,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolde
         Random random = new Random();
         int randomNumber = random.nextInt(_urlList.length);
         holder.webView.loadUrl(_urlList[randomNumber]);
-        Log.d("TAG", String.valueOf(randomNumber));
     }
 
     @Override
     public int getItemCount() {
-        return _itemList.size();
+        return itemList.size();
     }
 
     public void addItem(String item) {
-        _itemList.add(item);
-        FileHelper.writeData(_itemList, _context);
+        itemList.add(item);
         notifyItemInserted(getItemCount());
-    }
-
-    public void readData() {
-        _itemList = FileHelper.readData(_context);
     }
 
     public static class MyAdapterViewHolder extends RecyclerView.ViewHolder {
