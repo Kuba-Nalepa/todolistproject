@@ -13,6 +13,7 @@ public class MainActivity extends FragmentActivity {
     EditText item;
     Button add;
     ArrayList<String> itemList = new ArrayList<>();
+    RecyclerView recyclerView;
 
     private MyAdapter myAdapter;
 
@@ -20,7 +21,6 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView recyclerView;
 
         item = findViewById(R.id.editText);
         add = findViewById(R.id.button);
