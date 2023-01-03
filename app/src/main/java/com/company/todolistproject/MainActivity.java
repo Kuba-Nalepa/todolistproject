@@ -28,6 +28,7 @@ public class MainActivity extends FragmentActivity {
 
         myAdapter = new MyAdapter(itemList, this);
         recyclerView.setAdapter(myAdapter);
+        myAdapter.readData();
 
         add.setOnClickListener(v -> {
             String itemName = item.getText().toString();

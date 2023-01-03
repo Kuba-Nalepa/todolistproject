@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolder> {
 
-    private final ArrayList<String> _itemList;
+    private ArrayList<String> _itemList;
     private final Context _context;
     private final String[] _urlList = {
         "https://img.redro.pl/plakaty/countryside-road-in-mountains-on-a-sunny-day-beautiful-view-in-to-the-distant-foggy-valley-from-the-top-of-the-pass-trees-along-the-way-wonderful-rural-landscape-in-summer-400-243053348.jpg",
@@ -43,6 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolde
     @Override
     public void onBindViewHolder(@NonNull MyAdapterViewHolder holder, int position) {
         holder.textViewToDo.setText(_itemList.get(position));
+
         holder.btnDelete.setOnClickListener( view -> {
 
             /* Postanowiłem że wróce do koncepcji zwykłego AlertDialogu ponieważ nie jestem w
@@ -60,6 +61,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolde
             AlertDialog alertDialog = alert.create();
             alertDialog.show();
         });
+
         holder.webView.setWebViewClient(new WebViewClient());
         Random random = new Random();
         int randomNumber = random.nextInt(_urlList.length);
@@ -74,7 +76,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolde
 
     public void addItem(String item) {
         _itemList.add(item);
+        FileHelper.writeData(_itemList, _context);
         notifyItemInserted(getItemCount());
+    }
+
+    public void readData() {
+        _itemList = FileHelper.readData(_context);
     }
 
     public static class MyAdapterViewHolder extends RecyclerView.ViewHolder {
