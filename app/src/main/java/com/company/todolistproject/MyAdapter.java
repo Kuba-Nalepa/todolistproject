@@ -2,6 +2,7 @@ package com.company.todolistproject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolde
             alert.setPositiveButton("Yes", (dialog, which) -> {
                 itemList.remove(position);
                 notifyDataSetChanged();
-                FileHelper.writeData(itemList, _context);
+                Intent intent = new Intent(_context, MyService.class);
+                intent.putExtra("data", itemList);
+                _context.startService(intent);
             });
             AlertDialog alertDialog = alert.create();
             alertDialog.show();
