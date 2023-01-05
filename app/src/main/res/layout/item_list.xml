@@ -25,6 +25,21 @@
             android:padding="5dp"
             android:text="Todo Title"
             android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:id="@+id/btnReturn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:backgroundTint="#00FFFFFF"
+            android:src="@drawable/ic_return" />
 
         <ImageButton
             android:id="@+id/btnDelete"
@@ -32,6 +47,7 @@
             android:layout_height="50dp"
             android:backgroundTint="#00FFFFFF"
             android:src="@drawable/ic_delete" />
+
 
     </LinearLayout>
 
