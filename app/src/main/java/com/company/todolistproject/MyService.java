@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import androidx.annotation.Nullable;
+import com.google.gson.Gson;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+
 
 public class MyService extends Service {
 
@@ -24,11 +24,13 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         itemList = intent.getStringArrayListExtra("data");
-        Set<String> set = new HashSet<>(itemList);
-
         sharedPreferences = getSharedPreferences("SP",MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        editor.putStringSet("data",set);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(itemList);
+
+        editor.putString("data", json);
         editor.apply();
 
         return super.onStartCommand(intent, flags, startId);
